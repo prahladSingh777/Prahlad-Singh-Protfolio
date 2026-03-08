@@ -16,8 +16,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Name, email, and message are required' });
   }
 
-  const gmailUser = process.env.GMAIL_USER;
-  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+  const gmailUser = process.env['GMAIL_USER'];
+  const gmailPass = process.env['GMAIL_APP_PASSWORD'];
 
   if (!gmailUser || !gmailPass) {
     console.error('Missing GMAIL_USER or GMAIL_APP_PASSWORD env vars');
