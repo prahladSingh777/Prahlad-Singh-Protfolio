@@ -435,113 +435,71 @@ export class Portfolio implements AfterViewInit, OnDestroy {
 
   // ====== GSAP ScrollTrigger Animations ======
   private initGSAP() {
-    // Section titles slide in
-    gsap.utils.toArray<HTMLElement>('.sect-title').forEach(el => {
-      gsap.from(el, {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-      });
-    });
+    const anim = (target: string, from: gsap.TweenVars, triggerEl?: string) => {
+      gsap.fromTo(target,
+        { ...from },
+        {
+          y: 0, x: 0, opacity: 1, scale: 1,
+          duration: from['duration'] as number || 0.8,
+          stagger: from['stagger'] as number || 0,
+          ease: (from['ease'] as string) || 'power3.out',
+          clearProps: 'transform,opacity',
+          scrollTrigger: {
+            trigger: triggerEl || target,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+            ...(from['stOpts'] as object || {}),
+          },
+        }
+      );
+    };
 
-    // Section tags slide from left
-    gsap.utils.toArray<HTMLElement>('.sect-tag').forEach(el => {
-      gsap.from(el, {
-        x: -40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 90%' },
-      });
-    });
+    // Section titles
+    anim('.sect-title', { y: 60, opacity: 0, duration: 1 });
 
-    // Stat cards stagger
-    gsap.from('.stat-box', {
-      y: 50,
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: 'back.out(1.5)',
-      scrollTrigger: { trigger: '.stats-wrap', start: 'top 80%' },
-    });
+    // Section tags
+    anim('.sect-tag', { x: -40, opacity: 0, duration: 0.8 });
 
-    // Project cards stagger slide up
-    gsap.from('.proj-card', {
-      y: 80,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.proj-grid', start: 'top 80%' },
-    });
+    // Stat cards
+    anim('.stat-box', { y: 50, opacity: 0, duration: 0.7, stagger: 0.15, ease: 'back.out(1.5)' }, '.stats-wrap');
+
+    // Project cards
+    anim('.proj-card', { y: 80, opacity: 0, duration: 0.8, stagger: 0.2 }, '.proj-grid');
 
     // Experience blocks
-    gsap.from('.exp-block', {
-      y: 60,
-      opacity: 0,
-      duration: 0.9,
-      stagger: 0.3,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.exp-block', start: 'top 85%' },
-    });
+    anim('.exp-block', { y: 60, opacity: 0, duration: 0.9, stagger: 0.3 });
 
-    // Module cards slide from left with stagger
-    gsap.from('.mod-block', {
-      x: -60,
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.mod-block', start: 'top 85%' },
-    });
+    // Module cards
+    anim('.mod-block', { x: -60, opacity: 0, duration: 0.7, stagger: 0.15 });
 
-    // Skill category cards stagger
-    gsap.from('.skill-cat-card', {
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'back.out(1.4)',
-      scrollTrigger: {
-        trigger: '.skill-categories',
-        start: 'top 80%',
-        onEnter: () => {
-          document.querySelectorAll('.skill-cat-card').forEach(el => el.classList.add('ring-animated'));
+    // Skill category cards
+    gsap.fromTo('.skill-cat-card',
+      { y: 60, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'back.out(1.4)',
+        clearProps: 'transform,opacity',
+        scrollTrigger: {
+          trigger: '.skill-categories', start: 'top 80%',
+          onEnter: () => {
+            document.querySelectorAll('.skill-cat-card').forEach(el => el.classList.add('ring-animated'));
+          },
         },
-      },
-    });
+      }
+    );
 
-    // Skills marquee fade in
-    gsap.from('.marquee-wrap', {
-      opacity: 0,
-      y: 40,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.marquee-wrap', start: 'top 85%' },
-    });
+    // Marquee
+    anim('.marquee-wrap', { opacity: 0, y: 40, duration: 0.8 });
 
-    // Contact cards slide in from right
-    gsap.from('.c-card', {
-      x: 60,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.contact-info', start: 'top 80%' },
-    });
+    // Contact cards
+    anim('.c-card', { x: 60, opacity: 0, duration: 0.6, stagger: 0.15 }, '.contact-info');
 
-    // Contact form slide up
-    gsap.from('.c-form', {
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.c-form', start: 'top 85%' },
-    });
+    // Contact form
+    anim('.c-form', { y: 60, opacity: 0, duration: 0.8 });
 
-    // Parallax glows on scroll
+    // Info items
+    anim('.info-item', { y: 20, opacity: 0, duration: 0.5, stagger: 0.1 }, '.info-grid');
+
+    // Parallax glows (scrub only, no from)
     gsap.to('.glow-1', {
       y: -200,
       scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: 2 },
@@ -551,24 +509,11 @@ export class Portfolio implements AfterViewInit, OnDestroy {
       scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: 2 },
     });
 
-    // Terminal slide in
-    gsap.from('.terminal', {
-      x: 100,
-      opacity: 0,
-      duration: 1.2,
-      ease: 'power3.out',
-      delay: 0.8,
-    });
-
-    // Info grid items stagger
-    gsap.from('.info-item', {
-      y: 20,
-      opacity: 0,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.info-grid', start: 'top 85%' },
-    });
+    // Terminal slide in (one-time, not scroll)
+    gsap.fromTo('.terminal',
+      { x: 100, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.8, clearProps: 'transform,opacity' }
+    );
   }
 
   scrollTo(sectionId: string) {
