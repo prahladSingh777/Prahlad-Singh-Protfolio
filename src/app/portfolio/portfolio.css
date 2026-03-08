@@ -47,12 +47,6 @@
   transition:border-color .4s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease);}
 .glass:hover{border-color:rgba(129,140,248,.18);box-shadow:0 8px 40px rgba(99,102,241,.06);}
 
-/* ===== SCROLL REVEAL ===== */
-.reveal{opacity:0;transform:translateY(40px) scale(.98);
-  transition:opacity .9s var(--ease),transform .9s var(--ease);
-  transition-delay:calc(var(--i,0) * .12s);}
-.reveal.in-view{opacity:1;transform:none;}
-
 /* ===== SECTION ===== */
 .sect{padding:7rem 0;position:relative;}
 .sect-alt{background:var(--bg2);}

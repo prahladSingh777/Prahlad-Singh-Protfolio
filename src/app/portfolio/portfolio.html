@@ -154,13 +154,13 @@
 <!-- ====== ABOUT ====== -->
 <section id="about" class="sect">
   <div class="wrap">
-    <div class="sect-tag reveal"><span class="tag-line"></span>ABOUT</div>
-    <h2 class="sect-title reveal">Passionate about building <span class="text-grad">scalable systems</span></h2>
+    <div class="sect-tag"><span class="tag-line"></span>ABOUT</div>
+    <h2 class="sect-title">Passionate about building <span class="text-grad">scalable systems</span></h2>
     <div class="about-cols">
       <div class="about-bio">
         <p class="reveal">Java Backend Developer with <strong>4+ years</strong> of experience. Currently working on <strong>LendPerfect</strong>, a FinTech loan management platform serving <strong>Canara Bank</strong>, <strong>Union Bank of India</strong>, and <strong>Ujjivan Small Finance Bank</strong>.</p>
         <p class="reveal">Expert in CBS API integration, onsite client handling, UAT management, production support, and designing robust backend architectures with <strong>Java, Spring Boot, MySQL, and Spring Security</strong>.</p>
-        <div class="info-grid reveal">
+        <div class="info-grid">
           <div class="info-item"><span class="info-key">Name</span><span class="info-val">Prahlad Singh</span></div>
           <div class="info-item"><span class="info-key">Email</span><span class="info-val">Singhprahladofficial1000&#64;gmail.com</span></div>
           <div class="info-item"><span class="info-key">Location</span><span class="info-val">Bengaluru, Karnataka</span></div>
@@ -169,7 +169,7 @@
       </div>
       <div class="stats-wrap">
         @for (s of stats; track s.label; let i = $index) {
-          <div class="stat-box reveal" [style.--i]="i">
+          <div class="stat-box" [style.--i]="i">
             <span class="stat-num">{{ s.value }}</span>
             <span class="stat-lbl">{{ s.label }}</span>
           </div>
@@ -182,11 +182,11 @@
 <!-- ====== EXPERIENCE ====== -->
 <section id="experience" class="sect sect-alt">
   <div class="wrap">
-    <div class="sect-tag reveal"><span class="tag-line"></span>EXPERIENCE</div>
-    <h2 class="sect-title reveal">Where I've <span class="text-grad">contributed</span></h2>
+    <div class="sect-tag"><span class="tag-line"></span>EXPERIENCE</div>
+    <h2 class="sect-title">Where I've <span class="text-grad">contributed</span></h2>
 
     @for (exp of experiences; track exp.company) {
-      <div class="exp-block glass reveal" [class.is-current]="exp.current">
+      <div class="exp-block glass" [class.is-current]="exp.current">
         <div class="exp-top">
           <div>
             <div class="exp-role-row">
@@ -202,7 +202,7 @@
         </div>
         @if (exp.subModules) {
           @for (mod of exp.subModules; track mod.name; let idx = $index) {
-            <div class="mod-block reveal" [style.--i]="idx">
+            <div class="mod-block" [style.--i]="idx">
               <div class="mod-head">
                 <span class="mod-num">{{ idx + 1 }}</span>
                 <h4>{{ mod.name }}</h4>
@@ -230,9 +230,9 @@
 <!-- ====== SKILLS ====== -->
 <section id="skills" class="sect">
   <div class="wrap">
-    <div class="sect-tag reveal"><span class="tag-line"></span>TECH STACK</div>
-    <h2 class="sect-title reveal">Technologies I <span class="text-grad">master</span></h2>
-    <div class="marquee-wrap reveal">
+    <div class="sect-tag"><span class="tag-line"></span>TECH STACK</div>
+    <h2 class="sect-title">Technologies I <span class="text-grad">master</span></h2>
+    <div class="marquee-wrap">
       <div class="marquee-row">
         <div class="marquee-inner">
           @for (s of techStack; track s.name) {
@@ -260,11 +260,11 @@
 <!-- ====== PROJECTS ====== -->
 <section id="projects" class="sect sect-alt">
   <div class="wrap">
-    <div class="sect-tag reveal"><span class="tag-line"></span>PROJECTS</div>
-    <h2 class="sect-title reveal">Things I've <span class="text-grad">built</span></h2>
+    <div class="sect-tag"><span class="tag-line"></span>PROJECTS</div>
+    <h2 class="sect-title">Things I've <span class="text-grad">built</span></h2>
     <div class="proj-grid">
       @for (p of projects; track p.title; let i = $index) {
-        <div class="proj-card glass reveal" [class.featured]="p.highlight" [style.--i]="i">
+        <div class="proj-card glass" [class.featured]="p.highlight" [style.--i]="i">
           <div class="proj-icon">
             @switch (p.icon) {
               @case ('bank') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M4 18h16M6 18v-4M10 18v-4M14 18v-4M18 18v-4M2 10l10-7 10 7M4 10v4h16v-4"/></svg> }
@@ -297,11 +297,11 @@
 <!-- ====== CONTACT ====== -->
 <section id="contact" class="sect">
   <div class="wrap">
-    <div class="sect-tag reveal"><span class="tag-line"></span>CONTACT</div>
-    <h2 class="sect-title reveal">Let's work <span class="text-grad">together</span></h2>
-    <p class="contact-sub reveal">Have a project in mind? I'd love to hear from you.</p>
+    <div class="sect-tag"><span class="tag-line"></span>CONTACT</div>
+    <h2 class="sect-title">Let's work <span class="text-grad">together</span></h2>
+    <p class="contact-sub">Have a project in mind? I'd love to hear from you.</p>
     <div class="contact-cols">
-      <div class="contact-info reveal">
+      <div class="contact-info">
         <a href="mailto:Singhprahladofficial1000@gmail.com" class="c-card glass">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <div><small>Email</small><span>Singhprahladofficial1000&#64;gmail.com</span></div>
@@ -317,7 +317,7 @@
           <div><small>Location</small><span>Bengaluru, Karnataka</span></div>
         </div>
       </div>
-      <form class="c-form glass reveal" (submit)="$event.preventDefault()">
+      <form class="c-form glass" (submit)="$event.preventDefault()">
         <div class="f-row">
           <div class="f-field"><input type="text" placeholder=" " id="fn"/><label for="fn">Name</label></div>
           <div class="f-field"><input type="email" placeholder=" " id="fe"/><label for="fe">Email</label></div>
