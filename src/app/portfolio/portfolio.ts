@@ -544,7 +544,7 @@ export class Portfolio implements AfterViewInit, OnDestroy {
       to_name: 'Prahlad Singh',
     };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
+    emailjs.send(serviceId, templateId, templateParams, { publicKey })
       .then(() => {
         this.formStatus.set('sent');
         this.formName.set('');
@@ -553,7 +553,8 @@ export class Portfolio implements AfterViewInit, OnDestroy {
         this.formMessage.set('');
         setTimeout(() => this.formStatus.set('idle'), 4000);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('EmailJS Error:', err);
         this.formStatus.set('error');
         setTimeout(() => this.formStatus.set('idle'), 4000);
       });
