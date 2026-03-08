@@ -497,13 +497,12 @@ export class Portfolio implements AfterViewInit, OnDestroy {
       scrollTrigger: { trigger: '.mod-block', start: 'top 85%' },
     });
 
-    // Skill chips scale in
-    gsap.from('.chip', {
-      scale: 0,
+    // Skills section fade in
+    gsap.from('.marquee-wrap', {
       opacity: 0,
-      duration: 0.4,
-      stagger: 0.03,
-      ease: 'back.out(2)',
+      y: 40,
+      duration: 0.8,
+      ease: 'power3.out',
       scrollTrigger: { trigger: '.marquee-wrap', start: 'top 85%' },
     });
 
