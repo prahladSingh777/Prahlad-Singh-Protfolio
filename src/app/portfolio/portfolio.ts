@@ -539,9 +539,11 @@ export class Portfolio implements AfterViewInit, OnDestroy {
     const templateParams = {
       from_name: this.formName(),
       from_email: this.formEmail(),
+      reply_to: this.formEmail(),
+      to_email: 'Singhprahladofficial1000@gmail.com',
+      to_name: 'Prahlad Singh',
       subject: this.formSubject() || 'Portfolio Contact',
       message: this.formMessage(),
-      to_name: 'Prahlad Singh',
     };
 
     emailjs.send(serviceId, templateId, templateParams, { publicKey })
