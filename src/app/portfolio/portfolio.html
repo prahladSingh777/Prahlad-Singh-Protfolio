@@ -366,16 +366,45 @@
           <div><small>Location</small><span>Bengaluru, Karnataka</span></div>
         </div>
       </div>
-      <form class="c-form glass" (submit)="$event.preventDefault()">
+      <form class="c-form glass" (submit)="$event.preventDefault(); sendEmail()">
+        @if (formStatus() === 'sent') {
+          <div class="form-toast success">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Message sent successfully! I'll get back to you soon.
+          </div>
+        }
+        @if (formStatus() === 'error') {
+          <div class="form-toast error">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Failed to send. Please try again or email me directly.
+          </div>
+        }
         <div class="f-row">
-          <div class="f-field"><input type="text" placeholder=" " id="fn"/><label for="fn">Name</label></div>
-          <div class="f-field"><input type="email" placeholder=" " id="fe"/><label for="fe">Email</label></div>
+          <div class="f-field">
+            <input type="text" placeholder=" " id="fn" [value]="formName()" (input)="formName.set($any($event.target).value)" required/>
+            <label for="fn">Name *</label>
+          </div>
+          <div class="f-field">
+            <input type="email" placeholder=" " id="fe" [value]="formEmail()" (input)="formEmail.set($any($event.target).value)" required/>
+            <label for="fe">Email *</label>
+          </div>
         </div>
-        <div class="f-field"><input type="text" placeholder=" " id="fs"/><label for="fs">Subject</label></div>
-        <div class="f-field"><textarea rows="5" placeholder=" " id="fm"></textarea><label for="fm">Message</label></div>
-        <button type="submit" class="cta-btn full">
-          <span>Send Message</span>
-          <span class="cta-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+        <div class="f-field">
+          <input type="text" placeholder=" " id="fs" [value]="formSubject()" (input)="formSubject.set($any($event.target).value)"/>
+          <label for="fs">Subject</label>
+        </div>
+        <div class="f-field">
+          <textarea rows="5" placeholder=" " id="fm" [value]="formMessage()" (input)="formMessage.set($any($event.target).value)" required></textarea>
+          <label for="fm">Message *</label>
+        </div>
+        <button type="submit" class="cta-btn full" [disabled]="formStatus() === 'sending'">
+          @if (formStatus() === 'sending') {
+            <span class="btn-spinner"></span>
+            <span>Sending...</span>
+          } @else {
+            <span>Send Message</span>
+            <span class="cta-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+          }
         </button>
       </form>
     </div>

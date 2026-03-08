@@ -385,6 +385,21 @@ h1{font-size:4.2rem;font-weight:800;line-height:1.08;margin:0 0 .75rem;font-fami
 .f-field textarea:focus+label,.f-field textarea:not(:placeholder-shown)+label{
   top:-.48rem;left:.75rem;font-size:.68rem;color:var(--accent);background:var(--bg);padding:0 .35rem;font-family:var(--mono);}
 
+/* Form toast & spinner */
+.form-toast{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-radius:10px;
+  font-size:.88rem;margin-bottom:1.25rem;animation:toast-in .4s var(--ease);}
+.form-toast.success{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399;}
+.form-toast.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;}
+@keyframes toast-in{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:none;}}
+
+.btn-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+  border-radius:50%;animation:spin .6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.cta-btn:disabled{opacity:.6;cursor:not-allowed;}
+.cta-btn:disabled:hover{transform:none;box-shadow:0 4px 20px rgba(99,102,241,.3);}
+.cta-btn:disabled::before{display:none;}
+
 /* ===== FOOTER ===== */
 .site-footer{border-top:1px solid var(--border);padding:2rem 0;}
 .footer-row{display:flex;justify-content:space-between;align-items:center;}

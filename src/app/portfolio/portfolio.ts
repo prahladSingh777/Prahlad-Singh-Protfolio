@@ -2,6 +2,7 @@ import { Component, signal, AfterViewInit, OnDestroy, ElementRef, ViewChild } fr
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import emailjs from '@emailjs/browser';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -514,6 +515,48 @@ export class Portfolio implements AfterViewInit, OnDestroy {
       { x: 100, opacity: 0 },
       { x: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.8, clearProps: 'transform,opacity' }
     );
+  }
+
+  // ====== CONTACT FORM ======
+  formName = signal('');
+  formEmail = signal('');
+  formSubject = signal('');
+  formMessage = signal('');
+  formStatus = signal<'idle' | 'sending' | 'sent' | 'error'>('idle');
+
+  sendEmail() {
+    if (!this.formName() || !this.formEmail() || !this.formMessage()) {
+      return;
+    }
+
+    this.formStatus.set('sending');
+
+    // EmailJS: replace these with your actual IDs from https://www.emailjs.com
+    const serviceId = 'service_fzfdhgo';
+    const templateId = 'template_hhsv08o';
+    const publicKey = 'bh_l8LdqSgwe-E2Hr';
+
+    const templateParams = {
+      from_name: this.formName(),
+      from_email: this.formEmail(),
+      subject: this.formSubject() || 'Portfolio Contact',
+      message: this.formMessage(),
+      to_name: 'Prahlad Singh',
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then(() => {
+        this.formStatus.set('sent');
+        this.formName.set('');
+        this.formEmail.set('');
+        this.formSubject.set('');
+        this.formMessage.set('');
+        setTimeout(() => this.formStatus.set('idle'), 4000);
+      })
+      .catch(() => {
+        this.formStatus.set('error');
+        setTimeout(() => this.formStatus.set('idle'), 4000);
+      });
   }
 
   scrollTo(sectionId: string) {
