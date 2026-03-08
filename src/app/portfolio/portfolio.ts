@@ -2,7 +2,7 @@ import { Component, signal, AfterViewInit, OnDestroy, ElementRef, ViewChild } fr
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import emailjs from '@emailjs/browser';
+// Email sending via Vercel serverless function + Nodemailer
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -531,22 +531,20 @@ export class Portfolio implements AfterViewInit, OnDestroy {
 
     this.formStatus.set('sending');
 
-    // EmailJS: replace these with your actual IDs from https://www.emailjs.com
-    const serviceId = 'service_fzfdhgo';
-    const templateId = 'template_l3vq7hm';
-    const publicKey = 'bh_l8LdqSgwe-E2Hr';
-
-    const templateParams = {
-      from_name: this.formName(),
-      from_email: this.formEmail(),
-      reply_to: this.formEmail(),
-      to_email: 'Singhprahladofficial1000@gmail.com',
-      to_name: 'Prahlad Singh',
-      subject: this.formSubject() || 'Portfolio Contact',
-      message: this.formMessage(),
-    };
-
-    emailjs.send(serviceId, templateId, templateParams, { publicKey })
+    fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from_name: this.formName(),
+        from_email: this.formEmail(),
+        subject: this.formSubject(),
+        message: this.formMessage(),
+      }),
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed');
+        return res.json();
+      })
       .then(() => {
         this.formStatus.set('sent');
         this.formName.set('');
@@ -556,7 +554,7 @@ export class Portfolio implements AfterViewInit, OnDestroy {
         setTimeout(() => this.formStatus.set('idle'), 4000);
       })
       .catch((err) => {
-        console.error('EmailJS Error:', err);
+        console.error('Email Error:', err);
         this.formStatus.set('error');
         setTimeout(() => this.formStatus.set('idle'), 4000);
       });
