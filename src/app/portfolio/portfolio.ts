@@ -497,7 +497,23 @@ export class Portfolio implements AfterViewInit, OnDestroy {
       scrollTrigger: { trigger: '.mod-block', start: 'top 85%' },
     });
 
-    // Skills section fade in
+    // Skill category cards stagger
+    gsap.from('.skill-cat-card', {
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'back.out(1.4)',
+      scrollTrigger: {
+        trigger: '.skill-categories',
+        start: 'top 80%',
+        onEnter: () => {
+          document.querySelectorAll('.skill-cat-card').forEach(el => el.classList.add('ring-animated'));
+        },
+      },
+    });
+
+    // Skills marquee fade in
     gsap.from('.marquee-wrap', {
       opacity: 0,
       y: 40,
