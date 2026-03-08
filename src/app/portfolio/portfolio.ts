@@ -533,7 +533,7 @@ export class Portfolio implements AfterViewInit, OnDestroy {
 
     // EmailJS: replace these with your actual IDs from https://www.emailjs.com
     const serviceId = 'service_fzfdhgo';
-    const templateId = 'template_hhsv08o';
+    const templateId = 'template_l3vq7hm';
     const publicKey = 'bh_l8LdqSgwe-E2Hr';
 
     const templateParams = {
